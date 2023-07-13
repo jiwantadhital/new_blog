@@ -49,7 +49,18 @@ class CommnetController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data['comment']=Commnet::find($id);
+        if (!$data['comment']) {
+            return response()->json([
+                'message' => "Comment not found",
+
+            ],404);
+        }
+        else
+            return response()->json([
+                'message' => "Singe Comment",
+                'data'=>$data
+            ]);
     }
 
     /**
@@ -73,6 +84,18 @@ class CommnetController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data['Comment'] = Commnet::findorfail($id);
+
+        if (!$data['Comment']) {
+            return response()->json([
+                'message' => "Comment not found",
+            ], 404);
+        }
+
+        $data['Comment']->delete();
+
+        return response()->json([
+            'message' => "Comment deleted successfully",
+        ]);
     }
 }
