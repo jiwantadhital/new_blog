@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -38,6 +39,8 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
+    
     public function store(BlogRequest $request)
     {
         $file = $request->file('image_file');
@@ -62,7 +65,15 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+public function addCat(Request $request){
+    Category::create([
+        "title" => $request->title,
+    ]);
+    return response()->json([
+        'message' => "successful",
+        ]);
+}
+     public function show(string $id)
     {
         $data['blog']=Blog::find($id);
         if (!$data['blog']) {

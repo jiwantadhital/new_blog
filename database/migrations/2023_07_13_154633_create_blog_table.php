@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
+            $table->unsignedBigInteger('cat_id');
             $table->string('image')->nullable();
+            $table->foreign('cat_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
